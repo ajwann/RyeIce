@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Circular Image</title>
+  <title>Circular Image Spin</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5; /* Change to your desired background color */
+      background-color: #f5f5f5;
     }
 
     .image-container {
@@ -19,10 +19,28 @@
     }
 
     .image {
-      width: 200px; /* Adjust width as needed */
-      height: 200px; /* Adjust height as needed */
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
-      object-fit: cover; /* Ensures full image coverage */
+      object-fit: cover;
+      /* Optional: smooth out any transform changes */
+      transition: transform 0.3s;
+    }
+
+    /* This class triggers the spin animation */
+    .spin {
+      animation: spin-stop 3s ease-out forwards;
+    }
+
+    /* Keyframes for spinning with deceleration */
+    @keyframes spin-stop {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        /* Adjust the degree of rotation as needed (1080deg = 3 full rotations) */
+        transform: rotate(1080deg);
+      }
     }
   </style>
 </head>
@@ -30,5 +48,19 @@
   <div class="image-container">
     <img src="ryeice.jpeg" alt="Image Description" class="image">
   </div>
+
+  <script>
+    // Add click (or tap) listener to the image
+    document.querySelector('.image').addEventListener('click', function() {
+      var img = this;
+      // Remove the spin class if it was previously added so we can re-trigger the animation
+      img.classList.remove('spin');
+      // Force reflow to restart the animation
+      void img.offsetWidth;
+      // Add the class that applies the spin animation
+      img.classList.add('spin');
+    });
+  </script>
 </body>
 </html>
+

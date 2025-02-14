@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rye Ice</title>
+  <title>RI</title>
   <style>
     body {
       margin: 0;
@@ -16,7 +16,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      perspective: 1000px; /* Sets the viewer's distance for the 3D effect [8] */
+      perspective: 1000px; /* Provides depth for the 3D effect */
     }
 
     .image {
@@ -28,21 +28,21 @@
       transform-style: preserve-3d;
     }
     
-    /* When the image is clicked, this class triggers the combined pop-out and spin animation */
+    /* The spin class triggers the 3D rotation animation */
     .spin {
       animation: spin-pop 3s ease-out forwards;
     }
     
-    /* Keyframes combine a pop-out (via translateZ) with a full 1080deg spin */
+    /* Keyframes for pop-out and 3D z-axis spin */
     @keyframes spin-pop {
       0% {
-        transform: translateZ(0px) rotate3d(0, 0, 1, 0deg);
+        transform: translateZ(0px) rotateZ(0deg);
       }
       50% {
-        transform: translateZ(150px) rotate3d(0, 0, 1, 540deg);
+        transform: translateZ(150px) rotateZ(540deg);
       }
       100% {
-        transform: translateZ(0px) rotate3d(0, 0, 1, 1080deg);
+        transform: translateZ(0px) rotateZ(1080deg);
       }
     }
   </style>
@@ -53,7 +53,8 @@
   </div>
 
   <script>
-    // On click, remove and re-add the 'spin' class to re-trigger the animation
+    // When the image is clicked, it removes and re-adds the 'spin' class 
+    // to retrigger the animation
     document.querySelector('.image').addEventListener('click', function() {
       var img = this;
       img.classList.remove('spin');

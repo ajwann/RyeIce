@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RyeIce</title>
+  <title>Rye Ice</title>
   <style>
     body {
       margin: 0;
@@ -16,8 +16,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      /* Add perspective to enable 3D effect */
-      perspective: 1000px;
+      perspective: 1000px; /* Sets the viewer's distance for the 3D effect [8] */
     }
 
     .image {
@@ -26,20 +25,24 @@
       border-radius: 50%;
       object-fit: cover;
       transition: transform 0.3s;
-      /* Ensures that the image maintains 3D transform context */
       transform-style: preserve-3d;
     }
-
+    
+    /* When the image is clicked, this class triggers the combined pop-out and spin animation */
     .spin {
-      animation: spin-stop 3s ease-out forwards;
+      animation: spin-pop 3s ease-out forwards;
     }
-
-    @keyframes spin-stop {
-      from {
-        transform: rotate3d(0, 0, 1, 0deg);
+    
+    /* Keyframes combine a pop-out (via translateZ) with a full 1080deg spin */
+    @keyframes spin-pop {
+      0% {
+        transform: translateZ(0px) rotate3d(0, 0, 1, 0deg);
       }
-      to {
-        transform: rotate3d(0, 0, 1, 1080deg);
+      50% {
+        transform: translateZ(150px) rotate3d(0, 0, 1, 540deg);
+      }
+      100% {
+        transform: translateZ(0px) rotate3d(0, 0, 1, 1080deg);
       }
     }
   </style>
@@ -50,14 +53,12 @@
   </div>
 
   <script>
-    // Add click (or tap) listener to the image
+    // On click, remove and re-add the 'spin' class to re-trigger the animation
     document.querySelector('.image').addEventListener('click', function() {
       var img = this;
-      // Remove the spin class if it was previously added so we can re-trigger the animation
       img.classList.remove('spin');
-      // Force reflow to restart the animation
+      // Force reflow to reset the animation
       void img.offsetWidth;
-      // Add the class that applies the spin animation
       img.classList.add('spin');
     });
   </script>

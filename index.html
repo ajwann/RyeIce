@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Circular Image Spin</title>
+  <title>Circular Image 3D Spin</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background-color: #f5f5f5;
     }
-
+    
     .image-container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      /* Add perspective to enable 3D effect */
+      perspective: 1000px;
     }
 
     .image {
@@ -23,23 +25,21 @@
       height: 200px;
       border-radius: 50%;
       object-fit: cover;
-      /* Optional: smooth out any transform changes */
       transition: transform 0.3s;
+      /* Ensures that the image maintains 3D transform context */
+      transform-style: preserve-3d;
     }
 
-    /* This class triggers the spin animation */
     .spin {
       animation: spin-stop 3s ease-out forwards;
     }
 
-    /* Keyframes for spinning with deceleration */
     @keyframes spin-stop {
       from {
-        transform: rotate(0deg);
+        transform: rotate3d(0, 0, 1, 0deg);
       }
       to {
-        /* Adjust the degree of rotation as needed (1080deg = 3 full rotations) */
-        transform: rotate(1080deg);
+        transform: rotate3d(0, 0, 1, 1080deg);
       }
     }
   </style>
@@ -63,4 +63,3 @@
   </script>
 </body>
 </html>
-

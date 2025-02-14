@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RI</title>
+  <title>Rye Ice</title>
   <style>
     body {
       margin: 0;
@@ -18,7 +18,7 @@
       height: 100vh;
       perspective: 1000px; /* Provides depth for the 3D effect */
     }
-
+    
     .image {
       width: 200px;
       height: 200px;
@@ -28,21 +28,21 @@
       transform-style: preserve-3d;
     }
     
-    /* The spin class triggers the 3D rotation animation */
-    .spin {
-      animation: spin-pop 3s ease-out forwards;
+    /* The y-axis-rotate class triggers the 3D rotation and pop-out animation */
+    .y-axis-rotate {
+      animation: y-axis-rotate 3s ease-out forwards;
     }
     
-    /* Keyframes for pop-out and 3D z-axis spin */
-    @keyframes spin-pop {
+    /* Keyframes that animate pop-out and a flip around the Y axis */
+    @keyframes y-axis-rotate {
       0% {
-        transform: translateZ(0px) rotateZ(0deg);
+        transform: translateZ(0px) rotate3d(0, 0, 0, 0deg);
       }
       50% {
-        transform: translateZ(150px) rotateZ(540deg);
+        transform: translateZ(150px) rotate3d(0, 1, 0, 180deg);
       }
       100% {
-        transform: translateZ(0px) rotateZ(1080deg);
+        transform: translateZ(0px) rotate3d(0, 1, 0, 360deg);
       }
     }
   </style>
@@ -53,14 +53,13 @@
   </div>
 
   <script>
-    // When the image is clicked, it removes and re-adds the 'spin' class 
-    // to retrigger the animation
+    // On click, the code removes and re-adds the 'y-axis-rotate' class to retrigger the animation.
     document.querySelector('.image').addEventListener('click', function() {
       var img = this;
-      img.classList.remove('spin');
+      img.classList.remove('y-axis-rotate');
       // Force reflow to reset the animation
       void img.offsetWidth;
-      img.classList.add('spin');
+      img.classList.add('y-axis-rotate');
     });
   </script>
 </body>
